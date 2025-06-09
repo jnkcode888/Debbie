@@ -1,9 +1,11 @@
 import React, { useState, Children } from 'react';
 import { motion } from 'framer-motion';
+import debbieImage from '../images/debbie.jpg';
+
 const GallerySection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [{
-    url: 'https://images.unsplash.com/photo-1596875259548-46a5df8ed199?q=80&w=1000&auto=format&fit=crop',
+    url: debbieImage,
     title: 'Fashion Editorial',
     category: 'Modeling'
   }, {
