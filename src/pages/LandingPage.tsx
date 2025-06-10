@@ -1,8 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
+import { useNavigate } from 'react-router-dom';
+
 const LandingPage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const navigate = useNavigate();
+
+  const handleExploreClick = () => {
+    // On mobile, this will trigger the menu to open
+    const mobileMenuButton = document.querySelector('[aria-label="Open menu"]') as HTMLButtonElement;
+    if (mobileMenuButton) {
+      mobileMenuButton.click();
+    } else {
+      // On desktop, navigate to about section
+      navigate('/about');
+    }
+  };
+
   useEffect(() => {
     if (!canvasRef.current) return;
     const scene = new THREE.Scene();
@@ -95,7 +110,10 @@ const LandingPage = () => {
         duration: 0.6
       }}>
           <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur-md opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-          <button className="relative px-8 py-3 bg-black rounded-lg leading-none flex items-center">
+          <button 
+            onClick={handleExploreClick}
+            className="relative px-8 py-3 bg-black rounded-lg leading-none flex items-center hover:bg-black/80 transition-colors"
+          >
             <span className="text-gray-100 group-hover:text-gray-100 transition duration-200">
               Explore Portfolio
             </span>
@@ -103,14 +121,20 @@ const LandingPage = () => {
         </motion.div>
       </div>
       <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-        <motion.div className="animate-bounce" initial={{
-        opacity: 0
-      }} animate={{
-        opacity: 1
-      }} transition={{
-        delay: 2,
-        duration: 1
-      }}>
+        <motion.div 
+          className="animate-bounce cursor-pointer" 
+          initial={{
+            opacity: 0
+          }} 
+          animate={{
+            opacity: 1
+          }} 
+          transition={{
+            delay: 2,
+            duration: 1
+          }}
+          onClick={handleExploreClick}
+        >
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
@@ -118,4 +142,5 @@ const LandingPage = () => {
       </div>
     </div>;
 };
+
 export default LandingPage;
